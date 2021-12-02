@@ -1,0 +1,191 @@
+
+class Card:
+
+    def __init__(self, suit, rank, parent = None):
+        self.count = 1
+        self.suit = suit
+        self.rank = rank
+        self.parent = parent
+        self.left = None
+        self.right = None
+
+    def getSuit(self):
+        return self.suit
+
+    def setSuit(self, suit):
+        self.suit = suit
+
+    def getRank(self):
+        return self.rank
+
+    def setRank(self, rank):
+        self.rank = rank
+
+    def getCount(self):
+        return self.count
+
+    def setCount(self, count):
+        self.count = count
+
+    def getParent(self):
+        return self.parent
+
+    def setParent(self, parent):
+        self.parent = parent
+
+    def getLeft(self):
+        return self.left
+
+    def setLeft(self, left):
+        self.left = left
+
+    def getRight(self):
+        return self.right
+
+    def setRight(self, right):
+        self.right = right
+
+    def findMinCard(self):
+        current = self
+        while current.left:
+            current = current.left
+        return current
+
+    def __str__(self):
+        return "{} {} | {}\n".format(self.suit.upper(), self.rank.upper(), self.count)
+
+    def __gt__(self, rhs):
+        if self.rank.isnumeric() == False and rhs.rank.isnumeric() == False:
+            if self.rank.upper() == rhs.rank.upper():
+                return self.suit.upper() > rhs.suit.upper()
+            else:
+                pass
+        if self.rank.isnumeric() and rhs.rank.isnumeric():
+            if self.rank == rhs.rank:
+                return self.suit.upper() < rhs.suit.upper()
+            else:
+                return self.rank < rhs.rank
+        else:
+            lnum = self.rank
+            rnum = rhs.rank
+            if self.rank.isnumeric() == False:
+            
+                if self.rank.upper() == 'A':
+                    return False
+            
+                elif self.rank.upper() == 'K':
+                    lnum = 13
+                
+                elif self.rank.upper() == 'Q':
+                    lnum = 12
+                
+                elif self.rank.upper() == 'J':
+                    lnum = 11
+            if rhs.rank.isnumeric() == False:
+                
+                if rhs.rank.upper() == 'A':
+                    return True
+            
+                elif rhs.rank.upper() == 'K':
+                    rnum = 13
+                
+                elif rhs.rank.upper() == 'Q':
+                    rnum = 12
+                
+                elif rhs.rank.upper() == 'J':
+                    rnum = 11
+            return int(lnum) > int(rnum)
+        
+    def __lt__(self, rhs):
+        if self.rank.isnumeric() == False and rhs.rank.isnumeric() == False:
+            if self.rank.upper() == rhs.rank.upper():
+                return self.suit.upper() < rhs.suit.upper()
+            else:
+                pass
+        if self.rank.isnumeric() and rhs.rank.isnumeric():
+            if self.rank == rhs.rank:
+                return self.suit.upper() < rhs.suit.upper()
+            else:
+                return self.rank < rhs.rank
+        else:
+            lnum = self.rank
+            rnum = rhs.rank
+            if type(self.rank) == str:
+            
+                if self.rank.upper() == 'A':
+                    return True
+            
+                elif self.rank.upper() == 'K':
+                    lnum = 13
+                
+                elif self.rank.upper() == 'Q':
+                    lnum = 12
+                
+                elif self.rank.upper() == 'J':
+                    lnum = 11
+            if type(rhs.rank) == str:
+                
+                if rhs.rank.upper() == 'A':
+                    return False
+            
+                elif rhs.rank.upper() == 'K':
+                    rnum = 13
+                
+                elif rhs.rank.upper() == 'Q':
+                    rnum = 12
+                
+                elif rhs.rank.upper() == 'J':
+                    rnum = 11
+            return int(lnum) < int(rnum)
+
+    def __eq__(self, rhs):
+
+        if self.suit.upper() != rhs.suit.upper():
+            return False
+        
+        elif self.rank.isnumeric() != rhs.rank.isnumeric():
+                return False
+            
+        elif self.rank.isnumeric():
+            if self.rank == rhs.rank:
+                return True
+            else:
+                return False
+        else:
+            if self.rank.upper() == rhs.rank.upper():
+                return True
+            else:
+                return False
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    sace = Card('s', 'a')
+    deight = Card('D', '8')
+    hking = Card('h', 'k')
+    hjack = Card('H', 'j')
+    cjack = Card('c', 'j')
+    assert deight > sace
+    assert hjack > deight
+    assert hking > hjack
+    assert hking > sace
+    assert hjack > cjack
+    assert sace < deight
+    assert deight < hjack
+    assert hjack < hking
+
+
+
+
+
+
+
