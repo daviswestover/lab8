@@ -1,0 +1,155 @@
+from Card import Card
+
+class PlayerHand:
+
+    def __init__(self):
+        self.root = None
+        self.size = 0
+
+    def getTotalCards(self):
+        return self.size
+
+    def getMin(self):
+        if self.size == 0:
+            return None
+        else:
+            return self.root.findMin()
+
+    def _put(self, suit, rank, currentNode): #helper method to recursively walk down the tree
+        new = Card(suit, rank)
+        if new == currentNode:
+           new.count += 1
+            
+        elif new < currentNode:
+            if currentNode.getLeft():
+                self._put(suit, rank, currentNode.left)
+            else:
+                currentNode.left= \
+                Card(suit, rank, parent = currentNode)
+        else:
+            if currentNode.getRight():
+                self._put(suit, rank, currentNode.right)
+            else:
+                currentNode.right = \
+                Card(suit, rank, parent = currentNode)
+
+
+            
+    def put(self, suit, rank):
+        if self.get(suit, rank):
+            self.get(suit, rank).count += 1
+            exit
+        if self.root:
+            self._put(suit, rank, self.root)
+        else:
+            self.root = Card(suit, rank)
+        self.size += 1
+
+    def _get(self, suit, rank, currentNode):
+        card = Card(suit, rank)
+        if not currentNode:
+            return None
+        elif currentNode == card:
+            return currentNode
+        
+        elif card < currentNode:
+            return self._get(suit, rank, currentNode.left)
+        
+        else:
+            return self._get(suit, rank, currentNode.right)
+    
+    
+    def get(self, suit, rank):
+        if self.root:   # return payload for key if it exists
+            res = self._get(suit, rank, self.root)
+            if res:
+                return res
+            else:
+                return None
+        else:
+            return None
+
+    def preOrder(self):
+        ret = ''
+        current = self.root
+        ret += current.__str__()
+        done = False
+        while done == False:
+            while current.getLeft():
+                ret += current.getLeft().__str__()
+                current = current.getLeft()
+            
+            while current.getRight():
+                ret += current.getRight().__str__()
+                current = current.getRight()
+            if not current.getLeft() and not current.getRight():
+                done = True
+            else:
+                pass
+        return ret
+    
+    def isEmpty(self):
+        return self.size == 0
+
+    def inOrder(self):
+        ret = ""
+        current = self.root
+      #  if current:
+       #     ret += self.inOrder(self = current.left)
+        #    ret += current.root.__str__()
+       #     ret += self.inOrder(self = current.Right)
+        #return ret
+
+    def getSuccessor(self, suit, rank):
+        card = Card(suit, rank)
+        succ = None
+        found = False
+        if self.get(suit, rank):
+            if self.get(suit, rank).getRight():
+                succ = self.get(suit, rank).right.findMinCard()
+        return succ
+
+
+    
+
+    def delete(self, suit, rank):
+        if self.size > 1:
+            nodeToRemove = self._get(suit, rank, self.root)
+            if nodeToRemove:
+                self._get(suit, rank, self.root).count -= 1
+                self.remove(nodeToRemove) #mdify tree
+                self.size -= 1
+                
+            else:
+                return False
+                
+        elif self.size == 1 and self.root.key == key:
+            self.root.count -= 1
+            self.root = None
+            self.size -= 1
+            
+        else:
+            return False
+
+
+
+    
+
+if __name__ == "__main__":
+    joe = PlayerHand()
+    joe.put('s', '5')
+    joe.put('h', 'k')
+    joe.put('s', '7')
+    joe.put('d', '6')
+    joe.put('s', 'j')
+    joe.put('h', 'a')
+    joe.delete('h', 'a')
+    
+
+
+
+
+
+
+
+    
