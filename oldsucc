@@ -1,0 +1,10 @@
+    def getSuccessor(self, suit, rank):
+        card = Card(suit, rank)
+        succ = None
+        found = False
+        if self.get(suit, rank):
+            if self.get(suit, rank).getRight():
+                succ = self.get(suit, rank).right.findMin()
+            else:
+                return None
+        return succ
