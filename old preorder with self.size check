@@ -1,0 +1,19 @@
+    def preOrder(self):
+        ret = ''
+        current = self.root
+        ret += current.__str__()
+        done = False
+        check = 0
+        while done == False:
+            while current.getLeft():
+                ret += current.getLeft().__str__()
+                current = current.getLeft()
+            
+            while current.getRight():
+                ret += current.getRight().__str__()
+                current = current.getRight()
+            if self.size == check:
+                done = True
+            else:
+                pass
+        return ret
