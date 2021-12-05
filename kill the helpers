@@ -1,0 +1,39 @@
+    def inOrder(self):
+        ret = ""
+        if self.root is None:
+            return ret
+        for i in (self.inOrderer()):
+            ret += i.__str__()
+        return ret
+    
+    def inOrderer(self,currentNode = None, firstTime = True, nodes = []):
+        if firstTime:
+            currentNode = self.root
+        if self.root is None:
+            return
+        if currentNode.left:
+            self.inOrderer(currentNode.left, firstTime = False)
+        nodes.append(currentNode)
+        if currentNode.right:
+            self.inOrderer(currentNode.right, firstTime = False)
+        return nodes
+    def preOrder(self):
+        ret = ''
+        if self.root is None:
+            return ret
+        for i in (self.preOrderer()):
+            ret += i.__str__()
+        return ret
+
+    def preOrderer(self,currentNode = None, firstTime = True, nodes = []):
+        if firstTime:
+            currentNode = self.root
+        if self.root is None:
+            return
+        nodes.append(currentNode)
+        if currentNode.left:
+            self.preOrderer(currentNode.left, firstTime = False)
+        if currentNode.right:
+            self.preOrderer(currentNode.right, firstTime = False)
+        return nodes
+    
