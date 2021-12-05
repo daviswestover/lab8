@@ -1,0 +1,11 @@
+    def inOrder(self, currentNode = None, ret = '', firstTime = True):
+        if firstTime:
+            currentNode = self.root
+        if self.root is None:
+            return ret
+        if currentNode.left:
+            self.inOrder(currentNode.left, firstTime = False)
+        ret += currentNode.__str__()
+        if currentNode.right:
+            self.inOrder(currentNode.right, firstTime = False)
+        return ret
