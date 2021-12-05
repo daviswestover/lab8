@@ -1,0 +1,16 @@
+    def getSuccessor(self, suit, rank):
+        card = Card(suit, rank)
+        succ = None
+        if not self.root:
+            return None
+        if not self.get(suit, rank):
+            return None
+        for i in self.inOrder():
+            if i > card:
+                if succ is None:
+                    succ = i
+                else:
+                    if i < succ:
+                        succ = i
+                    else:
+                        continue
